@@ -10,20 +10,16 @@ namespace BusinessLogic
 {
     public class Logic
     {
-        //public IRepository<Student> repository = new EntityRepository<Student>(new DBContext());
-        public IRepository<Student> repository = new DapperRepository();
+        public IRepository<Student> repository = new EntityRepository<Student>(new DBContext());
+        //public IRepository<Student> repository = new DapperRepository();
 
-        //List<Student> students = new List<Student>();
         public void AddStudent(string name, string speciality, string group)
         {
-            //students.Add(new Student { Name = name, Group = group, Speciality = speciality });
             Task.Run(() => repository.Create(new Student { Name = name, Group = group, Speciality = speciality }));
         }
         public void DeleteStudent(int index)
         {
-            //Student stud = students[index];
             Task.Run(() => repository.Delete(repository.Read().ToList()[index]));
-            //students.Remove(students[index]);            
         }
         public List<string> ListOfStudents()
         {
