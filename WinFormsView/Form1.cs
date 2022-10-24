@@ -1,20 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using BusinessLogic;
 
 namespace WinFormsView
 {
     public partial class Form1 : Form
-    {
+    {        
         Form2 f2;
-        Logic BL = new Logic(); 
+        Logic BL = new Logic();
+
         public Form1()
         {
             InitializeComponent();
@@ -26,11 +22,13 @@ namespace WinFormsView
             listView1.Columns.Add("Cпециальность", 150);
             listView1.Columns.Add("Группа", 150);
 
-            for (int i = 0; i < BL.ListOfStudents().Count; i += 3)
+            List<string> studs = BL.ListOfStudents();
+
+            for (int i = 0; i < studs.Count; i += 3)
             {
-                ListViewItem newitem = new ListViewItem(BL.ListOfStudents().ElementAt(i));
-                newitem.SubItems.Add(BL.ListOfStudents().ElementAt(i + 1));
-                newitem.SubItems.Add(BL.ListOfStudents().ElementAt(i + 2));
+                ListViewItem newitem = new ListViewItem(studs.ElementAt(i));
+                newitem.SubItems.Add(studs.ElementAt(i + 1));
+                newitem.SubItems.Add(studs.ElementAt(i + 2));
 
                 listView1.Items.Add(newitem);
             }

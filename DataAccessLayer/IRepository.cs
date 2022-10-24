@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Model;
 
 namespace DataAccessLayer
 {
-    public interface IRepository<T>
+    public interface IRepository<T> where T: class, IDomainObject
     {
-        Task<T> Create(T person);
+        T Create(T person);
         IEnumerable<T> Read();
-        Task<T> Delete(T person);
+        T Delete(T person);
     }
 }

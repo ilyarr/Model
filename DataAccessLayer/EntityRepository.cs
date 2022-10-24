@@ -20,18 +20,18 @@ namespace DataAccessLayer
             _dbSet = context.Set<T>();
         }
 
-        public async Task<T> Create(T stud)
+        public T Create(T stud)
         {
-            await _dbSet.AddAsync(stud);
-            await _context.SaveChangesAsync();
+            _dbSet.Add(stud);
+            _context.SaveChanges();
 
             return stud;
         }
 
-        public async Task<T> Delete(T stud)
+        public T Delete(T stud)
         {
             _dbSet.Remove(stud);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
 
             return stud;
         }
@@ -39,7 +39,7 @@ namespace DataAccessLayer
         public IEnumerable<T> Read()
         {
             List<T> people = _dbSet.ToList();
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
 
             return people;
         }

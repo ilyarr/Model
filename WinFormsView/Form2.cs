@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using BusinessLogic;
 using ZedGraph;
@@ -24,22 +18,25 @@ namespace WinFormsView
 
         private void InitGraph(Logic BL)
         {
+            List<string> specialitys = BL.GetSpeciality();
+            List<string> studs = BL.ListOfStudents(); 
+
             GraphPane graphpane = zedGraphControl1.GraphPane;
 
             graphpane.CurveList.Clear();
 
-            double[] values = new double[BL.GetSpeciality().Count];
+            double[] values = new double[specialitys.Count];
 
             graphpane.Title.Text = "График распреления студентов по специальностям";
 
             graphpane.YAxis.Title.Text = "Количество студентов";
 
-            for (int i = 0; i < BL.GetSpeciality().Count; i++)
+            for (int i = 0; i < specialitys.Count; i++)
             {
                 int count = 0;
-                for (int k = 0; k < BL.ListOfStudents().Count; k += 3)
+                for (int k = 0; k < studs.Count; k += 3)
                 {
-                    if (BL.ListOfStudents()[k + 1] == BL.GetSpeciality()[i])
+                    if (studs[k + 1] == specialitys[i])
                     {
                         count += 1;
                     }
@@ -59,7 +56,13 @@ namespace WinFormsView
             graphpane.XAxis.Type = AxisType.Text;
 
             // Уставим для оси наши подписи
-            graphpane.XAxis.Scale.TextLabels = BL.GetSpeciality().ToArray();
+            graphpane.XAxis.Scale.TextLabels = specialitys.ToArray();
+
+            // Отключим градиентную заливку
+            curve.Bar.Fill.Type = FillType.Solid;
+
+            // Сделаем границы столбцов невидимыми
+            curve.Bar.Border.IsVisible = false;
 
             // Вызываем метод AxisChange (), чтобы обновить данные об осях.
             zedGraphControl1.AxisChange();

@@ -15,17 +15,18 @@ namespace BusinessLogic
 
         public void AddStudent(string name, string speciality, string group)
         {
-            Task.Run(() => repository.Create(new Student { Name = name, Group = group, Speciality = speciality }));
+            repository.Create(new Student { Name = name, Group = group, Speciality = speciality });
         }
         public void DeleteStudent(int index)
         {
-            Task.Run(() => repository.Delete(repository.Read().ToList()[index]));
+            repository.Delete(repository.Read().ToList()[index]);
         }
         public List<string> ListOfStudents()
         {
             List<string> list = new List<string>();
+            List<Student> students = repository.Read().ToList();
 
-            foreach (Student stud in repository.Read().ToList())
+            foreach (Student stud in students)
             {
                 list.Add(stud.Name);
                 list.Add(stud.Speciality);
@@ -36,10 +37,11 @@ namespace BusinessLogic
 
         public List<string> GetSpeciality()
         {
-            List<string> names = new List<string>(repository.Read()
+            List<Student> students = repository.Read().ToList();
+
+            List<string> names = new List<string>(students
                                          .GroupBy(stud => stud.Speciality)
-                                         .Select(g => g.Key)
-                                         .ToList());
+                                         .Select(g => g.Key));
             return names;
         }
     }

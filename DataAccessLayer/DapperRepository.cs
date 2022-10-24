@@ -13,14 +13,18 @@ namespace DataAccessLayer
     public class DapperRepository : IRepository<Student>
     {
         string ConnectionString =
-            @"Data Source=LAPTOP-389S4GT0\SQLEXPRESS;Initial Catalog=test;Integrated Security=True;MultipleActiveResultSets=True;TrustServerCertificate=True;Integrated Security=SSPI;";
+            @"Data Source=LAPTOP-389S4GT0\SQLEXPRESS;
+Initial Catalog=test;
+Integrated Security=True;MultipleActiveResultSets=True;
+TrustServerCertificate=True;
+Integrated Security=SSPI;";
 
-        public async Task<Student> Create(Student stud)
+        public Student Create(Student stud)
         {
             using (SqlConnection db = new SqlConnection(ConnectionString))
             {
                 db.Open();
-                var response = await db.QueryFirstOrDefaultAsync<Student>(
+                var response = db.QueryFirstOrDefault<Student>(
                     @"INSERT INTO [dbo].[Students] ([Name], [Group], [Speciality])
                     VALUES (@Name, @Group, @Speciality)",
                     new { stud.Name, stud.Group, stud.Speciality });
@@ -28,12 +32,12 @@ namespace DataAccessLayer
             }
         }
 
-        public async Task<Student> Delete(Student stud)
+        public Student Delete(Student stud)
         {
             using (SqlConnection db = new SqlConnection(ConnectionString))
             {
                 db.Open();
-                var response = await db.QueryFirstOrDefaultAsync<Student>(
+                var response = db.QueryFirstOrDefault<Student>(
                     @"DELETE FROM [dbo].[Students]
                     WHERE ID = @ID",
                     new { stud.ID });
