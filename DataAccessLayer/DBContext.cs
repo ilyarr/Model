@@ -5,12 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Ninject;
 
 namespace DataAccessLayer
 {
     public class DBContext : DbContext
     {
         public DbSet<Student> Students { get; set; }
+        [Inject]
         public DBContext()
         {
             Database.EnsureCreated();

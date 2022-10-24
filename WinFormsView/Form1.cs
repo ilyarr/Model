@@ -3,18 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using BusinessLogic;
+using Ninject;
 
 namespace WinFormsView
 {
     public partial class Form1 : Form
     {        
         Form2 f2;
-        Logic BL = new Logic();
+
+        IKernel ninjectKernel = new StandardKernel(new SimpleConfigModule());
+        Logic BL;
 
         public Form1()
         {
             InitializeComponent();
             listView1.Clear();
+
+            BL = ninjectKernel.Get<Logic>();
 
             listView1.View = View.Details;
 

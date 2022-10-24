@@ -1,5 +1,6 @@
 ﻿using System;
 using BusinessLogic;
+using Ninject;
 
 namespace ConsoleView
 {
@@ -7,7 +8,9 @@ namespace ConsoleView
     {
         static void Main(string[] args)
         {
-            Logic BL = new Logic();
+            IKernel ninjectKernel = new StandardKernel(new SimpleConfigModule());
+            Logic BL = ninjectKernel.Get<Logic>();
+
             while (true)
             {
                 Console.WriteLine(ShowAllStudents("ФИО студента", "Специальность", "Группа", BL));

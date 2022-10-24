@@ -10,8 +10,12 @@ namespace BusinessLogic
 {
     public class Logic
     {
-        public IRepository<Student> repository = new EntityRepository<Student>(new DBContext());
-        //public IRepository<Student> repository = new DapperRepository();
+        public IRepository<Student> repository { set; get; }
+
+        public Logic(IRepository<Student> repository)
+        {
+            this.repository = repository;
+        }
 
         public void AddStudent(string name, string speciality, string group)
         {
