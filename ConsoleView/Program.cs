@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using BusinessLogic;
 using Ninject;
 
@@ -30,7 +31,6 @@ namespace ConsoleView
             string ShowAllStudents(string name, string speciality, string group, Logic BL)
             {
                 string all = "";
-
                 all += $"{name,-20}     {speciality,-20}{group,-20}\n\n";
                 for (int i = 0; i < BL.ListOfStudents().Count; i += 3)
                 {

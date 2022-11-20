@@ -27,13 +27,11 @@ namespace WinFormsView
             listView1.Columns.Add("Cпециальность", 150);
             listView1.Columns.Add("Группа", 150);
 
-            List<string> studs = BL.ListOfStudents();
-
-            for (int i = 0; i < studs.Count; i += 3)
+            for (int i = 0; i < BL.ListOfStudents().Count; i += 3)
             {
-                ListViewItem newitem = new ListViewItem(studs.ElementAt(i));
-                newitem.SubItems.Add(studs.ElementAt(i + 1));
-                newitem.SubItems.Add(studs.ElementAt(i + 2));
+                ListViewItem newitem = new ListViewItem(BL.ListOfStudents().ElementAt(i));
+                newitem.SubItems.Add(BL.ListOfStudents().ElementAt(i + 1));
+                newitem.SubItems.Add(BL.ListOfStudents().ElementAt(i + 2));
 
                 listView1.Items.Add(newitem);
             }

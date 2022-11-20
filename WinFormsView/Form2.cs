@@ -18,8 +18,7 @@ namespace WinFormsView
 
         private void InitGraph(Logic BL)
         {
-            List<string> specialitys = BL.GetSpeciality();
-            List<string> studs = BL.ListOfStudents(); 
+            List<string> specialitys = BL.GetSpeciality(); 
 
             GraphPane graphpane = zedGraphControl1.GraphPane;
 
@@ -34,9 +33,9 @@ namespace WinFormsView
             for (int i = 0; i < specialitys.Count; i++)
             {
                 int count = 0;
-                for (int k = 0; k < studs.Count; k += 3)
+                for (int k = 0; k < BL.ListOfStudents().Count; k += 3)
                 {
-                    if (studs[k + 1] == specialitys[i])
+                    if (BL.ListOfStudents()[k + 1] == specialitys[i])
                     {
                         count += 1;
                     }
